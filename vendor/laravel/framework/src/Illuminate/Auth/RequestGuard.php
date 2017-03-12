@@ -27,11 +27,10 @@ class RequestGuard implements Guard
      * Create a new authentication guard.
      *
      * @param  callable  $callback
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function __construct(callable $callback,
-                                Request $request)
+    public function __construct(callable $callback, Request $request)
     {
         $this->request = $request;
         $this->callback = $callback;
@@ -51,7 +50,9 @@ class RequestGuard implements Guard
             return $this->user;
         }
 
-        return $this->user = call_user_func($this->callback, $this->request);
+        return $this->user = call_user_func(
+            $this->callback, $this->request
+        );
     }
 
     /**
