@@ -2,7 +2,7 @@
 
 @section('titulo')
 <h2>Consulta de Alumnos</h2>
-	<a href="{{url('/alumnosPDF')}}">
+	<a href="{{url('/alumnosPDF')}}" target="_blank">
 		<span class="glyphicon glyphicon-file" aria-hidden="true">PDF</span>
 	</a>
 @stop
@@ -34,10 +34,12 @@
 						@else
 							<td>Masculino</td>
 					@endif					
-				<td>{{$a->carrera}}</td>
+				<td>
+						<a href="{{url('carrerasAlumnosPDF')}}/{{$a->carrera}}" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>{{$a->nombre_carrera}}</a>
+				</td>
 				<td>{{$a->correo}}</td>
 				<td>
-					<a href="editarAlumno/{{$a->id}}" class="btn btn-xs btn-primary">
+					<a href="{{url('editarAlumno')}}/{{$a->id}}" class="btn btn-xs btn-primary">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</a>
 					<button type="button" class="btn btn-xs btn-danger" id="{{$a->id}}" data-toggle="modal" data-target="#myModal" aria-label="Left Align">

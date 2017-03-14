@@ -29,10 +29,10 @@
 			<label for="carrera">Carrera:</label>
 			<select name="carrera" class="form-control" required>
 				<option value="" selected>Selecciona carrera</option>
-				<option value="Ing. en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
-				<option value="Ing. Industrial">Ing. Industrial</option>
-				<option value="Ing. Electrónica">Ing. Electrónica</option>
-				<option value="Ing. Bioquímica">Ing. Bioquímica</option>
+				<option value="1">Ing. en Sistemas Computacionales</option>
+				<option value="2">Ing. Industrial</option>
+				<option value="3">Ing. Electrónica</option>
+				<option value="4">Ing. Bioquímica</option>
 			</select>
 		</div>
 		<div class="form-group">

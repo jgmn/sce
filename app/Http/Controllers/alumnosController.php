@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Alumno;
+use App\Carrera;
+use DB; /*Query Builder*/
 
 class alumnosController extends Controller
 {
@@ -24,12 +26,16 @@ class alumnosController extends Controller
     }
 
     public function consultarAlumnos() {
-        $alumnos=Alumno::all();
+        $alumnos = DB::table('alumnos')
+		->join('carreras','alumnos.carrera', '=', 'carreras.id')
+		->select('alumnos.*', 'carreras.nombre AS nombre_carrera')
+		->paginate(5);
         return view('consultarAlumnos', compact('alumnos'));
     }
 
 	public function editarAlumno($id)
 	{
+		/*Falta traer el nombre de la carrera*/
 		$alumnos = Alumno::find($id);
 		return view('editarAlumno', compact('alumnos'));
 	}
@@ -54,6 +60,22 @@ class alumnosController extends Controller
 		$dompdf = \App::make('dompdf.wrapper');
 		$dompdf->loadHTML($vista);
 		return $dompdf->stream('reporte.pdf');
+	}
+
+	public function carrerasAlumnosPDF($id)
+	{
+		/*Todos los alumnos de la carrera*/
+		$alumnos = DB::table('alumnos') 
+		->where('carrera', '=', $id)
+		->get();
+
+		/*Todos los datos de la carrera*/
+		$carrera = Carrera::find($id);
+
+		$vista = view('carrerasAlumnosPDF', compact('alumnos', 'carrera'));
+		$dompdf = \App::make('dompdf.wrapper');
+		$dompdf->loadHTML($vista);
+		return $dompdf->stream('lista.pdf');
 	}
 }
 
