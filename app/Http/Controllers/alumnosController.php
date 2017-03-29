@@ -10,7 +10,9 @@ use DB; /*Query Builder*/
 class alumnosController extends Controller
 {
     public function registrarAlumnos(){
-    	return view('registrarAlumno');
+		$carreras = Carrera::all();
+		return view('registrarAlumno', compact('carreras'));
+    	//return view('registrarAlumno');
     }
 
     public function guardarAlumno(Request $datos){
@@ -29,7 +31,8 @@ class alumnosController extends Controller
         $alumnos = DB::table('alumnos')
 		->join('carreras','alumnos.carrera', '=', 'carreras.id')
 		->select('alumnos.*', 'carreras.nombre AS nombre_carrera')
-		->paginate(5);
+		->get();
+		//->paginate(5);
         return view('consultarAlumnos', compact('alumnos'));
     }
 
